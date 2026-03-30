@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-cp-bg: #000000;          /* Strict OLED Black */
+  --color-cp-panel: #0F172A;       /* Slate 900 for lifted surfaces */
+  --color-cp-border: #1E293B;      /* Slate 800 for subtle structural borders */
+  --color-cp-border-hover: #334155;/* Slate 700 for hover borders */
+  --color-cp-text: #F8FAFC;        /* Slate 50 for primary text */
+  --color-cp-muted: #94A3B8;       /* Slate 400 for secondary text (WCAG AAA for large, AA for small) */
+  --color-cp-active: #38BDF8;      /* Sky 400 for focus/active states */
+  
+  /* Rank Colors typical of CP platforms, saturated for Dark Mode visibility */
+  --color-cp-red: #EF4444;      /* Red 500 */
+  --color-cp-yellow: #FACC15;   /* Yellow 400 */
+  --color-cp-violet: #A855F7;   /* Purple 500 */
+  --color-cp-blue: #3B82F6;     /* Blue 500 */
+  --color-cp-cyan: #06B6D4;     /* Cyan 500 */
+  --color-cp-green: #22C55E;    /* Green 500 */
+  --color-cp-gray: #64748B;     /* Slate 500 */
+
+  --font-sans: var(--font-chivo), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@utility cp-panel {
+  background-color: var(--color-cp-panel);
+  border: 1px solid var(--color-cp-border);
+}
+
+@utility cp-border {
+  border: 1px solid var(--color-cp-border);
+}
+
+@utility cp-border-b {
+  border-bottom: 1px solid var(--color-cp-border);
+}
+
+@utility cp-border-t {
+  border-top: 1px solid var(--color-cp-border);
+}
+
+/* ui-ux-pro-max requirement: clear focus rings */
+@utility cp-focus {
+  outline: none;
+  &:focus-visible {
+    outline: 2px solid var(--color-cp-active);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  :root {
+    --background: #000000;
+    --foreground: #F8FAFC;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply antialiased min-h-screen flex flex-col font-sans selection:bg-cp-blue selection:text-white;
+  }
 }
