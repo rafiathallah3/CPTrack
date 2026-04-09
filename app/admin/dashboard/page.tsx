@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { createContest, createProblem } from "../actions/admin";
+import { createContest, createProblem } from "../../actions/admin";
 
 export default async function AdminDashboardPage() {
   const supabase = await createClient();

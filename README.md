@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 CPTrack
 
-## Getting Started
+**CPTrack** is a modern Competitive Programming platform built for students to sharpen their coding skills, participate in contests, and track their progress in real-time. This project was developed as a university implementation for software development and programming practice.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 💻 **Interactive IDE**: A professional-grade coding environment using the **Monaco Editor** (the engine behind VS Code).
+- ⚙️ **Multi-Language Support**: Write and execute code in various languages (C++, Java, Python, Node.js) powered by the **Piston API**.
+- 📊 **Real-time Progress**: Track your submissions, success rates, and skill level directly from your personal dashboard.
+- 🏆 **Contests & Community**: Join scheduled contests and engage with other student coders.
+- 🔐 **Secure Auth**: Seamless login and profile management via **Supabase**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tech Stack
 
-## Learn More
+- **Frontend**: [Next.js](https://nextjs.org/) (React 19)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Backend & Database**: [Supabase](https://supabase.com/)
+- **Code Execution**: [Piston API](https://github.com/engineer-man/piston)
+- **Editor**: [Monaco Editor](https://microsoft.github.io/monaco-editor/)
+- **Components**: [React Resizable Panels](https://github.com/bvaughn/react-resizable-panels)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Getting Started
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To run this project locally, follow these steps:
 
-## Deploy on Vercel
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/cptrack.git
+   cd cptrack
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Set up Environment Variables**:
+   Create a `.env.local` file in the root directory and add your Supabase credentials:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+4. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+
+5. **Open the App**:
+   Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## University Project
+
+This application is part of a university software project aimed at providing a robust tool for competitive programming preparation. It focuses on modular architecture, clean code, and user-centric design.

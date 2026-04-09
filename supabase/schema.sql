@@ -69,6 +69,7 @@ CREATE TABLE problems (
     description TEXT NOT NULL,
     difficulty TEXT NOT NULL, -- Easy, Medium, Hard
     tags TEXT[] DEFAULT ARRAY[]::TEXT[],
+    test_cases JSONB DEFAULT '[]'::JSONB,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -82,3 +83,22 @@ CREATE TABLE submissions (
     status submission_status DEFAULT 'pending'::submission_status,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+
+-- 8. Auth Trigger (Automatically syncs auth.users to public.users on signup)
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS trigger AS $$
+BEGIN
+  INSERT INTO public.users (id, username, role)
+  VALUES (
+    new.id, 
+    COALESCE(new.raw_user_meta_data->>'username', 'User_' || substr(new.id::text, 1, 5)), 
+    'user'
+  );
+  RETURN new;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();

@@ -2,6 +2,7 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
+import { executeCodeWithPiston } from "@/utils/pistonClient";
 
 // SubmissionController equivalent
 export async function handleSubmission(formData: FormData) {
@@ -28,9 +29,50 @@ export async function handleSubmission(formData: FormData) {
 
   if (error) throw new Error("Failed to submit code: " + error.message);
 
-  // Here you would trigger external compilation/execution sandbox
-  // compileAndExecute() equivalent 
   console.log(`Executing code for submission ${record.id}`);
+
+  // Fetch test cases
+  const { data: problem, error: problemError } = await supabase
+    .from("problems")
+    .select("test_cases")
+    .eq("id", problemId)
+    .single();
+
+  if (problemError || !problem) {
+    throw new Error("Failed to fetch problem data: " + (problemError?.message || "Not found"));
+  }
+
+  const testCases = problem.test_cases || [];
+  let finalStatus = "accepted"; 
+
+  // Evaluate against test cases
+  for (const testCase of testCases) {
+    const result = await executeCodeWithPiston(
+      language,
+      code,
+      testCase.input,
+      testCase.expected_output
+    );
+
+    if (result.status !== 'Accepted') {
+      finalStatus = result.status.toLowerCase().replace(' ', '_'); // Maps to enum (e.g. wrong_answer, compilation_error)
+      break; 
+    }
+  }
+
+  if (testCases.length === 0) {
+    finalStatus = "accepted"; // Default pass if no cases defined
+  }
+
+  // Update submission status in DB
+  const { error: updateError } = await supabase
+    .from("submissions")
+    .update({ status: finalStatus })
+    .eq("id", record.id);
+
+  if (updateError) {
+    console.error(`Failed to update status for submission ${record.id}:`, updateError.message);
+  }
 
   revalidatePath(`/problems/${problemId}`);
 }
