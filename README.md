@@ -29,34 +29,55 @@
 
 To run this project locally, follow these steps:
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/your-username/cptrack.git
-   cd cptrack
-   ```
+### 1. Prerequisite: Local Piston Execution Engine
+The platform requires a local instance of the **Piston API** to execute user code in a sandboxed environment.
 
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+1.  **Clone and Start Piston**:
+    ```bash
+    # From your project root, clone the Piston repo (or it may already be in the /piston folder)
+    # If not present: git clone https://github.com/engineer-man/piston
+    cd piston
+    docker-compose up -d api
+    ```
 
-3. **Set up Environment Variables**:
-   Create a `.env.local` file in the root directory and add your Supabase credentials:
-   ```env
-   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-   ```
+2.  **Install Language Runtimes**:
+    By default, the engine is empty. You must install the runtimes used by CPTrack:
+    ```bash
+    cd cli && npm install && cd ..
+    node cli/index.js ppman install node python gcc java
+    ```
+    *Note: This step downloads several hundred MBs of compilers/interpreters.*
 
-4. **Run the development server**:
-   ```bash
-   npm run dev
-   ```
+### 2. Website Setup
 
-5. **Open the App**:
-   Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/rafiathallah3/cptrack.git
+    cd cptrack
+    ```
+
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
+
+3.  **Set up Environment Variables**:
+    Create a `.env.local` file in the root directory and add your Supabase credentials:
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+    ```
+
+4.  **Run the development server**:
+    ```bash
+    npm run dev
+    ```
+
+5.  **Open the App**:
+    Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## University Project
+## 🏛️ Project Context
 
 This application is part of a university software project aimed at providing a robust tool for competitive programming preparation. It focuses on modular architecture, clean code, and user-centric design.

@@ -48,6 +48,8 @@ export interface Problem {
   description: string;
   difficulty: string;
   tags: string[];
+  test_cases: { input: string; expected_output: string }[];
+  hidden_test_cases: { input: string; expected_output: string }[];
   created_at: string;
 }
 
@@ -58,5 +60,13 @@ export interface Submission {
   code: string;
   programming_language: string;
   status: SubmissionStatus;
+  created_at: string;
+}
+
+export interface SubmissionVote {
+  id: string; // UUID
+  submission_id: string; // UUID references submissions
+  user_id: string; // UUID references users
+  vote_type: 'like' | 'dislike';
   created_at: string;
 }

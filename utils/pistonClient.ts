@@ -6,10 +6,10 @@ export interface ExecutionResult {
 }
 
 export const languageAliases: Record<string, { language: string, version: string }> = {
-  javascript: { language: 'javascript', version: '18.15.0' }, // nodejs
-  python: { language: 'python', version: '3.10.0' },
-  cpp: { language: 'c++', version: '10.2.0' },
-  java: { language: 'java', version: '15.0.2' },
+  javascript: { language: 'javascript', version: '*' }, // nodejs
+  python: { language: 'python', version: '*' },
+  cpp: { language: 'c++', version: '*' },
+  java: { language: 'java', version: '*' },
 };
 
 export async function executeCodeWithPiston(
@@ -23,7 +23,7 @@ export async function executeCodeWithPiston(
     throw new Error(`Unsupported language: ${programmingLanguage}`);
   }
 
-  const response = await fetch("https://emkc.org/api/v2/piston/execute", {
+  const response = await fetch("http://127.0.0.1:2000/api/v2/execute", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
